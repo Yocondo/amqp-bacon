@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Bacon.js wrapper for AMQP",
   "private": true,
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git@bitbucket.org:yocondo/amqp-bacon.git"
