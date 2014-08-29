@@ -39,40 +39,35 @@ client = (options) ->
 			client.logger.info '[AMQP] connection established.'
 			resolve conn
 
-	streams = []
+	connection: connection
 
-	{
-		connection: connection
+	subscribe: (queueName, queueOptions, subscriptionOptions) ->
+		Bacon.fromBinder subscribe connection, queueName, queueOptions, subscriptionOptions
 
-		subscribe: (queueName, queueOptions, subscriptionOptions) ->
-			streams.push stream = Bacon.fromBinder subscribe connection, queueName, queueOptions, subscriptionOptions
-			stream
-
-		exchange: (exchangeName, exchangeOptions) ->
-			connection.then (conn) ->
-				new Promise (resolve, reject) ->
-					client.logger.debug '[AMQP] creating exchange %s with options', exchangeName, exchangeOptions
-					conn.exchange exchangeName, exchangeOptions, resolve
-
-		queue: (queueName, queueOptions) ->
-			connection.then (conn) ->
-				new Promise (resolve, reject) ->
-					client.logger.debug '[AMQP] creating queue %s with options', queueName, queueOptions
-					conn.queue queueName, queueOptions, resolve
-
-		bind: (queue, exchangeName, routingKey = '') ->
+	exchange: (exchangeName, exchangeOptions) ->
+		connection.then (conn) ->
 			new Promise (resolve, reject) ->
-				client.logger.debug '[AMQP] binding queue %s to exchange %s', queue.name, exchangeName
-				queue.bind exchangeName, routingKey, ->
-					client.logger.debug '[AMQP] queue %s bound to exchange %s', queue.name, exchangeName
-					resolve queue
+				client.logger.debug '[AMQP] creating exchange %s with options', exchangeName, exchangeOptions
+				conn.exchange exchangeName, exchangeOptions, resolve
 
-		close: (next) ->
-			connection.then (conn) ->
-				client.logger.info '[AMQP] closing connection.'
-				conn.destroy()
-				next?()
-	}
+	queue: (queueName, queueOptions) ->
+		connection.then (conn) ->
+			new Promise (resolve, reject) ->
+				client.logger.debug '[AMQP] creating queue %s with options', queueName, queueOptions
+				conn.queue queueName, queueOptions, resolve
+
+	bind: (queue, exchangeName, routingKey = '') ->
+		new Promise (resolve, reject) ->
+			client.logger.debug '[AMQP] binding queue %s to exchange %s', queue.name, exchangeName
+			queue.bind exchangeName, routingKey, ->
+				client.logger.debug '[AMQP] queue %s bound to exchange %s', queue.name, exchangeName
+				resolve queue
+
+	close: (next) ->
+		connection.then (conn) ->
+			client.logger.info '[AMQP] closing connection.'
+			conn.destroy()
+			next?()
 
 client.logger = console
 
