@@ -2,13 +2,13 @@
   "name": "amqp-bacon",
   "version": "1.0.0",
   "description": "Bacon.js wrapper for AMQP",
-  "private": true,
   "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git@bitbucket.org:yocondo/amqp-bacon.git"
   },
   "readmeFilename": "README.md",
+  "license": "MIT",
   "dependencies": {
     "amqp": "^0.2.0",
     "baconjs": "^0.7.22",

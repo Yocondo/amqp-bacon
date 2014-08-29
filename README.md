@@ -9,3 +9,8 @@ Bacon.js adapter for AMQP
 	stream.onValue(function(message) {
 		console.log('Received message:', message.payload);
 	});
+
+License
+-------
+
+This project is published under the [MIT license](LICENSE).
