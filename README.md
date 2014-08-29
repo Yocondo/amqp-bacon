@@ -1,0 +1,2 @@
+AMQP with Bacon.js
+==================

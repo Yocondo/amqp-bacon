@@ -1,0 +1,21 @@
+{
+  "name": "amqp-bacon",
+  "version": "1.0.0",
+  "description": "Bacon.js wrapper for AMQP",
+  "private": true,
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:yocondo/amqp-bacon.git"
+  },
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "amqp": "^0.2.0",
+    "baconjs": "^0.7.22",
+    "es6-promise": "^1.0.0",
+    "winston": "^0.7.3"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.8.0"
+  }
+}
