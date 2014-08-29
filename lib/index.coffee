@@ -47,13 +47,13 @@ client = (options) ->
 	exchange: (exchangeName, exchangeOptions) ->
 		connection.then (conn) ->
 			new Promise (resolve, reject) ->
-				client.logger.debug '[AMQP] creating exchange %s with options', exchangeName, exchangeOptions
+				client.logger.debug '[AMQP] %s exchange %s with options', (if exchangeOptions.passive then 'looking up' else 'creating'), exchangeName, exchangeOptions
 				conn.exchange exchangeName, exchangeOptions, resolve
 
 	queue: (queueName, queueOptions) ->
 		connection.then (conn) ->
 			new Promise (resolve, reject) ->
-				client.logger.debug '[AMQP] creating queue %s with options', queueName, queueOptions
+				client.logger.debug '[AMQP] %s queue %s with options', (if queueOptions.passive then 'looking up' else 'creating'), queueName, queueOptions
 				conn.queue queueName, queueOptions, resolve
 
 	bind: (queue, exchangeName, routingKey = '') ->
